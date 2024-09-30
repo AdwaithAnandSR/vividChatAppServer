@@ -2,28 +2,21 @@ import express from "express";
 const router = express.Router();
 
 import { Health } from "../handlers/indexRoutes.js";
+import Chat from "../models/chatModel.js";
 
 router.get("/health", Health);
 
-import userModel from '../models/userModel.js'
-import chatModel from '../models/chatModel.js'
+router.get("/msgs", async (req, res) => {
+	let chatId = "66cf2a159eceae13d5f9ce21_66cf49ed5bca1be7f3777128";
+	let userId = "66cf49ed5bca1be7f3777128";
 
-router.get('/chats', async (req, res)=>{
-   const chats = await chatModel.find({})
-   res.send(chats)
-})
-router.get('/users', async (req, res)=>{
-   const users = await userModel.find({})
-   res.send(users)
-})
-router.get('/deleteChats', async (req, res)=>{
-   await chatModel.deleteMany({})
-})
+	let chat = await Chat.find({
+		chatId,
+		"messages.receiver": userId
+	});
 
-router.get('/a', async (req, res)=>{
-   const id = '66e94c3ea69c3a15b0e9d63e'
-   const user = await userModel.findOne({_id: id})
-   res.status(200).send(user.avatar)
-})
+	res.send(chat);
+
+});
 
 export default router;
