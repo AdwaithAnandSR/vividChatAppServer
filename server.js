@@ -7,6 +7,7 @@ import cors from 'cors';
 import mongoose from './config/mongodbConfig.js';
 import indexRoutes from './routes/index.js';
 import authenticationRoutes from './routes/authentication.js';
+import debugRoutes from './routes/debug.js';
 
 import socketEvents from './handlers/socketHandler.js';
 
@@ -21,6 +22,7 @@ app.use(cors())
 
 app.use('/', indexRoutes);
 app.use('/auth', authenticationRoutes);
+app.use('/debug', debugRoutes);
 
 const PORT = process.env.PORT || 4000;
 server.listen(PORT, () => {

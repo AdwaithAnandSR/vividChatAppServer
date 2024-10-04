@@ -3,15 +3,15 @@ import chatModel from "../models/chatModel.js";
 const sendMessage = async ({ chat, socket, users }) => {
 	const newMessage = {
 		message: chat.message,
-		sender: chat.sender,
-		receiver: chat.receiver
+		sender: chat.sender.id,
+		receiver: chat.receiver.id
 	};
-
+	
 	let chatDocument = await chatModel.findOneAndUpdate(
 		{ chatId: chat.chatId },
 		{
 			$push: { messages: newMessage },
-			$addToSet: { participants: { $each: [chat.sender, chat.receiver] } }
+			$addToSet: { participants: { $each: [chat.sender.id, chat.receiver.id] } }
 		},
 		{ new: true, upsert: true }
 	);
