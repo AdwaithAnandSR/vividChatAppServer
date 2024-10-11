@@ -25,7 +25,9 @@ const userSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now
 	},
-	pushToken: String
+	pushToken: String,
+	avatar: String
+	
 });
 
 
