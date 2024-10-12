@@ -6,8 +6,6 @@ const getUserChats = async ({ userId, socket }) => {
          "participants"
       );
 
-      console.log(chats);
-
       return socket.emit("getUserChatsResponse", chats);
    } catch (error) {
       console.error(error);
